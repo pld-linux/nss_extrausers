@@ -36,7 +36,7 @@ export CC CXX CFLAGS CXXFLAGS LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/%{_lib},%{_var}/lib/extrausers}
+install -d $RPM_BUILD_ROOT{/%{_libdir},%{_var}/lib/extrausers}
 touch $RPM_BUILD_ROOT%{_var}/lib/extrausers/{passwd,group,shadow}
 
 %{__make} install \
