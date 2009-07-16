@@ -1,0 +1,39 @@
+diff -ur libnss-extrausers-0.2.orig/Makefile libnss-extrausers-0.2/Makefile
+--- libnss-extrausers-0.2.orig/Makefile	2009-05-27 16:18:26.000000000 +0200
++++ libnss-extrausers-0.2/Makefile	2009-07-16 22:43:31.245529045 +0200
+@@ -2,19 +2,18 @@
+ 
+ CC = gcc
+ prefix = /usr
+-exec_prefix = ${prefix}
+ BITSOFS=
+-libprefix = ${exec_prefix}/lib$(BITSOFS)
++LIBDIR = /usr/lib
+ DESTDIR=
+ OBJSUFFIX=$(BITSOFS).o
+ OBJECTS=shadow$(OBJSUFFIX) passwd$(OBJSUFFIX) group$(OBJSUFFIX)
+ SHARED_OBJECT = libnss_extrausers$(BITSOFS).so.2
+ INSTALL_NAME = libnss_extrausers.so.2
+ # This only works sometimes, give manually when needed:
+-BIT_CFLAGS = $(if $(BITSOFS),-m$(BITSOFS))
+-CFLAGS = $(BIT_CFLAGS) -g -O2 -Wall -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes
+-CPPFLAGS =
+-LIBS = -lc
++#BIT_CFLAGS = $(if $(BITSOFS),-m$(BITSOFS))
++#CFLAGS = $(BIT_CFLAGS) -g -O2 -Wall -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes
++#CPPFLAGS =
++#LIBS = -lc
+ LDFLAGS = -shared -Wl,-soname,$(INSTALL_NAME) -Wl,-z,defs --no-allow-shlib-undefined
+ 
+ all: $(SHARED_OBJECT)
+@@ -26,8 +25,8 @@
+ 	$(CC) $(CPPFLAGS) $(CFLAGS) -fPIC -c -o $@ $<
+ 
+ install:
+-	install -m755 -d $(DESTDIR)$(libprefix)/
+-	install -m644 $(SHARED_OBJECT) $(DESTDIR)$(libprefix)/$(INSTALL_NAME)
++	install -m755 -d $(DESTDIR)$(LIBDIR)/
++	install -m644 $(SHARED_OBJECT) $(DESTDIR)$(LIBDIR)/$(INSTALL_NAME)
+ 
+ clean:
+ 	rm -f $(OBJECTS)
