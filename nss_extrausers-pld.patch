@@ -1,0 +1,31 @@
+diff -ur libnss-extrausers-0.2.orig/shadow.c libnss-extrausers-0.2/shadow.c
+--- libnss-extrausers-0.2.orig/shadow.c	2009-05-27 13:42:54.000000000 +0200
++++ libnss-extrausers-0.2/shadow.c	2009-07-18 15:18:58.000000000 +0200
+@@ -123,22 +123,27 @@
+ 		p = ++h;
+ 		/* extract min */
+ 		t_min = strtol(p,&h,10);
++		if(p == h) t_min = -1;
+ 		p=h;
+ 		CHECKCOLON;
+ 		/* extract max */
+ 		t_max = strtol(p,&h,10);
++		if(p == h) t_max = -1;
+ 		p=h;
+ 		CHECKCOLON;
+ 		/* extract days of warning */
+ 		t_warn = strtol(p,&h,10);
++		if(p == h) t_warn = -1;
+ 		p=h;
+ 		CHECKCOLON;
+ 		/* extract days of inactivity */
+ 		t_inact = strtol(p,&h,10);
++		if(p == h) t_inact = -1;
+ 		p=h;
+ 		CHECKCOLON;
+ 		/* extract day of expire */
+ 		t_expire = strtol(p,&h,10);
++		if(p == h) t_expire = -1;
+ 		p=h;
+ 		CHECKCOLON;
+ 		/* extract reserved flags */
