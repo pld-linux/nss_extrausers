@@ -1,0 +1,36 @@
+--- libnss-extrausers-0.2.orig/group.c
++++ libnss-extrausers-0.2/group.c
+@@ -29,6 +29,7 @@
+    Lesser General Public License for more details.
+ */
+ #define _GNU_SOURCE 1
++#define _FILE_OFFSET_BITS 64
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -119,7 +120,9 @@
+ 	gid_t t_gid;
+ 	char *t_name,*t_passwd;
+ 	char **t_mem;
++	off_t last_position;
+ 
++	last_position = ftello(stream);
+ 	flockfile(stream);
+ 	while( 1 )  {
+ 		buffer[buflen - 1] = '\xff';
+@@ -139,6 +142,7 @@
+ 		if( buffer[buflen - 1] != '\xff' || h == NULL ) {
+ 			funlockfile(stream);
+ 			*errnop = ERANGE;
++			fseeko(stream, last_position, SEEK_SET);
+ 			return NSS_STATUS_TRYAGAIN;
+ 		}
+ 		while( isspace(*h) && h != p ) {
+@@ -177,6 +181,7 @@
+ 		t_mem = parse_list(h,buffer,buflen,errnop);
+ 		if( t_mem == NULL ){
+ 			funlockfile(stream);
++			fseeko(stream, last_position, SEEK_SET);
+ 			return NSS_STATUS_TRYAGAIN;
+ 		}
+ 		if( t_gid < MINGID ) {

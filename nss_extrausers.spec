@@ -2,13 +2,14 @@ Summary:	NSS module providing additional passwd, group and shadow files
 Summary(pl.UTF-8):	Moduł NSS dostarczający dodatkowe pliki passwd, group i shadow
 Name:		nss_extrausers
 Version:	0.2
-Release:	1
+Release:	3
 License:	LGPL
 Group:		Base
 Source0:	http://ftp.debian.org/debian/pool/main/libn/libnss-extrausers/libnss-extrausers_%{version}.orig.tar.gz
 # Source0-md5:	68f13e0dd0523a77182cac165dc5491b
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-pld.patch
+Patch2:		lfs.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -25,6 +26,7 @@ przeniesionych z innego serwera w oddzielnych plikach.
 %setup -q -n libnss-extrausers-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 CC="%{__cc}"
@@ -54,7 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) /%{_libdir}/*.so*
+%attr(755,root,root) /%{_libdir}/*.so.2
 %dir %{_var}/lib/extrausers
 %config(noreplace) %verify(not md5 mtime size) %{_var}/lib/extrausers/passwd
 %config(noreplace) %verify(not md5 mtime size) %{_var}/lib/extrausers/group
