@@ -18,8 +18,8 @@ group and shadow files, allowing to store system accounts ie. copied
 from other systems in separate files.
 
 %description -l pl.UTF-8
-Ten moduł do serwisu nazw, dostarcza dodatkowe pliki passwd, group
-i shadow pozwalając na przechowywanie danych o kontach np.
+Ten moduł do serwisu nazw, dostarcza dodatkowe pliki passwd, group i
+shadow pozwalając na przechowywanie danych o kontach np.
 przeniesionych z innego serwera w oddzielnych plikach.
 
 %prep
